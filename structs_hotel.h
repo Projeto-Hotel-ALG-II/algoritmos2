@@ -4,25 +4,25 @@
 #include <stdio.h>
 
 /*
- * Struct Hotel - Guarda os dados do Hotel em questÆo
+ * Struct Hotel - Guarda os dados do Hotel em questÃ†o
  */
 typedef struct
 {
     char nome_fantasia[50];
     char razao_soc[50];
-    int inscricao_estadual;
-    int cnpj;
+    char inscricao_estadual[16];
+    char cnpj[19];
     char end_completo[100];
-    int telefone;
+    char telefone[15];
     char email[50];
     char nome_responsavel[50];
-    int tel_responsavel;
-    int horario_checkin;
-    int horario_checkout;
+    char tel_responsavel[15];
+    char horario_checkin[6];
+    char horario_checkout[6];
     float margem_lucro;
 } str_hotel;
 /*
- * Struct H¢spedes - Guarda os dados dos H¢spedes do hotel
+ * Struct HÂ¢spedes - Guarda os dados dos HÂ¢spedes do hotel
  */
 typedef struct
 {
@@ -38,7 +38,7 @@ typedef struct
 } str_hospedes;
 
 /*
- * Sub-Struct de 'Acomodacoes' - Guarda as caracter¡sticas das acomoda‡äes e ‚ acessada atrav‚s da struct Acomodacoes
+ * Sub-Struct de 'Acomodacoes' - Guarda as caracterÂ¡sticas das acomodaâ€¡Ã¤es e â€š acessada atravâ€šs da struct Acomodacoes
  */
 typedef struct
 {
@@ -49,7 +49,7 @@ typedef struct
 } str_categ_acomodacoes;
 
 /*
- * Struct Acomodacoes - Guarda as informa‡äes das acomoda‡äes
+ * Struct Acomodacoes - Guarda as informaâ€¡Ã¤es das acomodaâ€¡Ã¤es
  */
 typedef struct
 {
@@ -61,7 +61,7 @@ typedef struct
 } str_acomodacoes;
 
 /*
- * Struct Produtos - Guarda as informa‡äes dos produtos
+ * Struct Produtos - Guarda as informaâ€¡Ã¤es dos produtos
  */
 typedef struct
 {
@@ -97,7 +97,7 @@ typedef struct
     char nome[50];
     char usuario[20];
     int senha;
-    /*? Permissäes;*/
+    /*? PermissÃ¤es;*/
 } str_op_sistemas;
 
 #endif
