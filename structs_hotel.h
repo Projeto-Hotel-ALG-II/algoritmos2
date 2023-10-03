@@ -1,11 +1,16 @@
+#ifndef structs_hotel_h
+#define structs_hotel_h
+
 #include <stdio.h>
 
-// Struct Hotel
+/*
+ * Struct Hotel - Guarda os dados do Hotel em quest∆o
+ */
 typedef struct
 {
     char nome_fantasia[50];
     char razao_soc[50];
-    int inscricao_estadual; 
+    int inscricao_estadual;
     int cnpj;
     char end_completo[100];
     int telefone;
@@ -16,22 +21,25 @@ typedef struct
     int horario_checkout;
     float margem_lucro;
 } str_hotel;
-
-// Struct H√≥spedes
+/*
+ * Struct H¢spedes - Guarda os dados dos H¢spedes do hotel
+ */
 typedef struct
 {
     int codigo;
     char nome[50];
     char end_completo[100];
-    int cpf;
-    int telefone;
+    char cpf[15];
+    char telefone[15];
     char email[50];
     char sexo;
     char estado_civil[15];
-    int data_nasc;
+    char data_nasc[11];
 } str_hospedes;
 
-// Sub-Struct de 'Acomodacoes'
+/*
+ * Sub-Struct de 'Acomodacoes' - Guarda as caracter°sticas das acomodaá‰es e Ç acessada atravÇs da struct Acomodacoes
+ */
 typedef struct
 {
     int codigo;
@@ -40,17 +48,21 @@ typedef struct
     int qtd_pessoas;
 } str_categ_acomodacoes;
 
-// Struct Acomodacoes
+/*
+ * Struct Acomodacoes - Guarda as informaá‰es das acomodaá‰es
+ */
 typedef struct
 {
     str_categ_acomodacoes catec_acomod;
     int codigo;
     char descricao[140];
     char facilidades[100];
-    char categoria[30];   
+    char categoria[30];
 } str_acomodacoes;
 
-// Struct Produtos
+/*
+ * Struct Produtos - Guarda as informaá‰es dos produtos
+ */
 typedef struct
 {
     int codigo;
@@ -61,7 +73,9 @@ typedef struct
     float preco_venda;
 } str_produtos;
 
-// Struct Fornecedores
+/*
+ * Struct Fornecedores - Guarda os dados dos fornecedores do hotel
+ */
 typedef struct
 {
     int codigo;
@@ -74,12 +88,16 @@ typedef struct
     char email[50];
 } str_fornecedores;
 
-// Struct Operadores do Sistema
+/*
+ * Struct Operadores do Sistema - Guarda os logins dos operadores do sistema
+ */
 typedef struct
 {
     int codigo;
     char nome[50];
     char usuario[20];
     int senha;
-    /*? Permiss√µes;*/ 
+    /*? Permiss‰es;*/
 } str_op_sistemas;
+
+#endif
