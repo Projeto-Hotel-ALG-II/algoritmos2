@@ -19,4 +19,23 @@ void pausaSist(){
     getch();
 }
 
+/*
+ * Utilizada para tornar a pasta tempor ria principal
+ */
+int renomeiaFile(char temporario[35], char original[35])
+{
+    int ret;
+    ret = remove(original);
+    if (ret != 0)
+        printf("ERRO AO REMOVER");
+    pausaSist();
+
+    ret = rename(temporario, original);
+    if (ret != 0)
+        printf("ERRO AO RENOMEAR");
+    pausaSist();
+
+    return 0;
+}
+
 #endif
