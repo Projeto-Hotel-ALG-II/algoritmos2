@@ -71,8 +71,8 @@ int main()
 
                     break;
                 case 2: // Campo 2 - H¢spedes - Matheus Garcia *
-                    strcpy(nomeTemp, "temp.txt");
-                    strcpy(nomeOrg, "dados_hospedes.txt");
+                    strcpy(nomeTemp, "..\\data\\temp.txt");
+                    strcpy(nomeOrg, "..\\data\\dados_hospedes.txt");
                     while (1)
                     {
                         clearPrompt();
@@ -151,11 +151,11 @@ int main()
                             fflush(stdin);
                             scanf("%s", hospedes.cpf);
 
-                            ret = pesquisarHospede(hospedes.cpf, hospedes, &hospedes.codigo, hospedes.nome, hospedes.end_completo, hospedes.cpf, hospedes.telefone, hospedes.email, &hospedes.sexo, hospedes.estado_civil, hospedes.data_nasc);
+                            ret = pesquisarHospede(hospedes.cpf, &hospedes.codigo, hospedes.nome, hospedes.end_completo, hospedes.cpf, hospedes.telefone, hospedes.email, &hospedes.sexo, hospedes.estado_civil, hospedes.data_nasc);
 
                             if (ret == 0)
                             {
-                                printf("=> Cliente encontrado!\n");
+                                printf("=> H¢spede encontrado!\n");
                                 printf("=========================================\n");
                                 printf("C¢digo             : %d\n", hospedes.codigo);
                                 printf("Nome               : %s\n", hospedes.nome);
@@ -184,16 +184,16 @@ int main()
 
                             printf("\n");
 
-                            ret = pesquisarHospede(hospedes.cpf, hospedes, &hospedes.codigo, hospedes.nome, hospedes.end_completo, hospedes.cpf, hospedes.telefone, hospedes.email, &hospedes.sexo, hospedes.estado_civil, hospedes.data_nasc);
+                            ret = pesquisarHospede(hospedes.cpf, &hospedes.codigo, hospedes.nome, hospedes.end_completo, hospedes.cpf, hospedes.telefone, hospedes.email, &hospedes.sexo, hospedes.estado_civil, hospedes.data_nasc);
 
                             if (ret == 0)
                             {
-                                printf("=> Cliente encontrado!\n");
+                                printf("=> H¢spede encontrado!\n");
                                 printf("=========================================\n");
                                 printf("C¢digo             : %d\n", hospedes.codigo);
                                 printf("Nome               : %s\n", hospedes.nome);
                                 printf("Telefone           : %s\n", hospedes.telefone);
-                                printf("Sexo               : %c\n", hospedes.sexo);
+                                printf("Email              : %c\n", hospedes.email);
                                 printf("Data de Nascimento : %s\n", hospedes.data_nasc);
                                 printf("=========================================\n");
                                 printf("Deseja alterar este h¢spede?\n");
@@ -244,7 +244,6 @@ int main()
 
                                     if (ret == 0)
                                     {
-                                        renomeiaFile(nomeTemp, nomeOrg);
                                         printf("H¢spede alterado com sucesso");
                                         pausaSist();
                                     }
@@ -272,16 +271,16 @@ int main()
 
                             printf("\n");
 
-                            ret = pesquisarHospede(hospedes.cpf, hospedes, &hospedes.codigo, hospedes.nome, hospedes.end_completo, hospedes.cpf, hospedes.telefone, hospedes.email, &hospedes.sexo, hospedes.estado_civil, hospedes.data_nasc);
+                            ret = pesquisarHospede(hospedes.cpf, &hospedes.codigo, hospedes.nome, hospedes.end_completo, hospedes.cpf, hospedes.telefone, hospedes.email, &hospedes.sexo, hospedes.estado_civil, hospedes.data_nasc);
 
                             if (ret == 0)
                             {
-                                printf("=> Cliente encontrado!\n");
+                                printf("=> H¢spede encontrado!\n");
                                 printf("=========================================\n");
                                 printf("C¢digo             : %d\n", hospedes.codigo);
                                 printf("Nome               : %s\n", hospedes.nome);
                                 printf("Telefone           : %s\n", hospedes.telefone);
-                                printf("Sexo               : %c\n", hospedes.sexo);
+                                printf("Email              : %c\n", hospedes.email);
                                 printf("Data de Nascimento : %s\n", hospedes.data_nasc);
                                 printf("=========================================\n");
                                 printf("Deseja excluir este h¢spede?\n");
@@ -296,12 +295,11 @@ int main()
 
                                     if (ret == 0)
                                     {
-                                        renomeiaFile(nomeTemp, nomeOrg);
                                         printf("H¢spede exclu¡do com sucesso!");
                                         pausaSist();
 
                                         if (ret == 1)
-                                            printf("Erro ao Renomear");
+                                        printf("Erro ao Renomear");
                                         pausaSist();
                                     }
                                     else
@@ -317,10 +315,6 @@ int main()
                                 pausaSist();
                             }
                             break;
-                        case 24:
-                            renomeiaFile(nomeTemp, nomeOrg);
-                            break;
-
                         default: // ===== EM CASO DE OUTRA OP€ÇO =====
                             printf("\n[X] ERRO - Insira um valor v lido!");
                             pausaSist();
