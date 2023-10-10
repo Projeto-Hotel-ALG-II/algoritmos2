@@ -4,38 +4,55 @@
 #include <stdio.h>
 #include <conio.h>
 #include <windows.h>
+#include <sys/stat.h>
+
 /*
- * Fun‡Æo limpa o prompt de comando 
-*/
-void clearPrompt(){
+ * Fun‡Æo limpa o prompt de comando
+ */
+void clearPrompt()
+{
     system("cls");
 }
 
 /*
- * Fun‡Æo pausa a aplica‡Æo e mostra o texto "Pressione qualquer tecla para continuar..." 
-*/
-void pausaSist(){
+ * Fun‡Æo pausa a aplica‡Æo e mostra o texto "Pressione qualquer tecla para continuar..."
+ */
+void pausaSist()
+{
     printf("\nPressione qualquer tecla para continuar . . .");
     getch();
 }
 
 /*
- * Utilizada para tornar a pasta tempor ria principal
+ * Fun‡Æo para tornar arquivo temporario o arquivo principal, exemplo: substituiTemp("..\\data\\dados_arq.txt","..\\data\\temp.txt");
  */
-int renomeiaFile(char temporario[35], char original[35])
+int substituiTemp(char original[35], char temporario[35])
 {
-    int ret;
-    ret = remove(original);
-    if (ret != 0)
-        printf("ERRO AO REMOVER");
-    pausaSist();
 
-    ret = rename(temporario, original);
-    if (ret != 0)
-        printf("ERRO AO RENOMEAR");
-    pausaSist();
+    if (chmod(original, S_IWUSR) == 0 && chmod(temporario, S_IWUSR) == 0)
+    {
+        remove(original);
+        rename(temporario, original);
+    }
 
     return 0;
+}
+
+/*
+ * Fun‡Æo para contar linhas de um arquivo, exemplo: contadorLinhas("..\\data\\dados_nomeArq.txt");
+ */
+int contadorLinhas(char fileName[35])
+{
+    FILE *pF;
+    char linha[1000];
+    int qtdLinhas = 1;
+    pF = fopen(fileName, "r");
+    while (fgets(linha, sizeof(linha), pF) != NULL)
+    {
+        qtdLinhas++;
+    }
+    fclose(pF);
+    return qtdLinhas;
 }
 
 #endif
