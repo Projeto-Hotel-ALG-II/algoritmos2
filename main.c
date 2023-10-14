@@ -7,14 +7,24 @@
 // TODAS AS STRUCTS
 #include "structs_hotel.h"
 
-// FUN€åES: HàSPEDES
+// FUN€åES: GEST¶O E CADASTROS
 #include "hospedes_hotel.h"
+#include "fornecedores_hotel.h"
+
+// FUN€åES: RESERVAS
+#include "reservas_hotel.h"
 
 int main()
 {
-    // Structs para h¢spedes
+    // STRUCTS CADASTRO E GESTÇO
     str_hotel hotel;
     str_hospedes hospedes;
+    str_acomodacoes acomod;
+    str_fornecedores fornecedores;
+
+    // STRUCTS RESERVAS
+    str_reservas reserva;
+
     AnsiUpper(strcpy(hotel.nome_fantasia, "Muk-Luk Lodge")); // Nome provis¢rio pro hotel
 
     int choice; // variavel armazena as escolhas feitas pelo usu rio
@@ -193,7 +203,7 @@ int main()
                                 printf("C¢digo             : %d\n", hospedes.codigo);
                                 printf("Nome               : %s\n", hospedes.nome);
                                 printf("Telefone           : %s\n", hospedes.telefone);
-                                printf("Email              : %c\n", hospedes.email);
+                                printf("Email              : %s\n", hospedes.email);
                                 printf("Data de Nascimento : %s\n", hospedes.data_nasc);
                                 printf("=========================================\n");
                                 printf("Deseja alterar este h¢spede?\n");
@@ -280,7 +290,7 @@ int main()
                                 printf("C¢digo             : %d\n", hospedes.codigo);
                                 printf("Nome               : %s\n", hospedes.nome);
                                 printf("Telefone           : %s\n", hospedes.telefone);
-                                printf("Email              : %c\n", hospedes.email);
+                                printf("Email              : %s\n", hospedes.email);
                                 printf("Data de Nascimento : %s\n", hospedes.data_nasc);
                                 printf("=========================================\n");
                                 printf("Deseja excluir este h¢spede?\n");
@@ -296,10 +306,6 @@ int main()
                                     if (ret == 0)
                                     {
                                         printf("H¢spede exclu¡do com sucesso!");
-                                        pausaSist();
-
-                                        if (ret == 1)
-                                        printf("Erro ao Renomear");
                                         pausaSist();
                                     }
                                     else
@@ -329,6 +335,240 @@ int main()
 
                     break;
                 case 5: // Campo 5 - Fornecedores
+                    while (1)
+                    {
+                        clearPrompt();
+                        // menu principal da se‡Æo funcionarios
+                        printf("Cadastro e GestÆo de Fornecedores:\n");
+                        printf("1 - Cadastrar\n");
+                        printf("2 - Pesquisar\n");
+                        printf("3 - Alterar\n");
+                        printf("4 - Excluir\n");
+                        printf("5 - Voltar\n");
+                        printf("=> ");
+                        scanf("%d", &choice);
+
+                        if (choice == 5)
+                        {
+                            break;
+                        }
+
+                        switch (choice)
+                        {
+                        case 1: // ===== CADASTRAR FORNECEDOR =====
+
+                            // recolhendo dados do novo fornecedor
+                            fflush(stdin);
+                            printf("Indique o nome               : ");
+                            scanf(" %[^\n]", fornecedores.nome);
+
+                            fflush(stdin);
+                            printf("Indique a razÆo social       : ");
+                            scanf(" %[^\n]", fornecedores.razao_social);
+
+                            fflush(stdin);
+                            printf("Indique a inscri‡Æo estadual : ");
+                            scanf(" %[^\n]", fornecedores.inscricao_estadual);
+
+                            fflush(stdin);
+                            printf("Indique o cnpj               : ");
+                            scanf(" %[^\n]", fornecedores.cnpj);
+
+                            fflush(stdin);
+                            printf("Indique o endere‡o completo  : ");
+                            scanf(" %[^\n]", fornecedores.end_completo);
+
+                            fflush(stdin);
+                            printf("Indique o telefone           : ");
+                            scanf(" %[^\n]", fornecedores.telefone);
+
+                            fflush(stdin);
+                            printf("Indique o email              : ");
+                            scanf(" %[^\n]", fornecedores.email);
+
+                            // fun‡Æo cadastra o fornecedor
+                            ret = cadastrarFornecedor(fornecedores);
+
+                            if (ret == 0)
+                            {
+                                printf("\nFornecedor cadastrado com sucesso!");
+                                pausaSist();
+                            }
+                            else
+                            {
+                                printf("Erro ao acessar o arquivo dados_fornecedores.txt\n");
+                                pausaSist();
+                            }
+                            break;
+                        case 2: // ===== PESQUISAR FORNECEDOR =====
+                            printf("Pesquisar Fornecedor: \n");
+                            printf("CNPJ do fornecedor: ");
+                            fflush(stdin);
+                            scanf("%s", fornecedores.cnpj);
+
+                            ret = pesquisarFornecedor(fornecedores.cnpj, &fornecedores.codigo, fornecedores.nome, fornecedores.razao_social, fornecedores.inscricao_estadual,
+                                                      fornecedores.cnpj, fornecedores.end_completo, fornecedores.telefone, fornecedores.email);
+
+                            if (ret == 0)
+                            {
+                                printf("=> Fornecedor encontrado!\n");
+                                printf("=========================================\n");
+                                printf("C¢digo             : %d\n", fornecedores.codigo);
+                                printf("Nome Fornecedor    : %s\n", fornecedores.nome);
+                                printf("RazÆo Social       : %s\n", fornecedores.razao_social);
+                                printf("Inscri‡Æo Estadual : %s\n", fornecedores.inscricao_estadual);
+                                printf("CNPJ               : %s\n", fornecedores.cnpj);
+                                printf("Endere‡o Completo  : %s\n", fornecedores.end_completo);
+                                printf("Telefone           : %s\n", fornecedores.telefone);
+                                printf("Email              : %s\n", fornecedores.email);
+                                pausaSist();
+                            }
+                            else
+                            {
+                                printf("=> Fornecedor nÆo encontrado!\n");
+                                pausaSist();
+                            }
+                            break;
+                        case 3: // ===== ALTERAR FORNECEDOR =====
+                            clearPrompt();
+                            printf("Alterar fornecedor:\n");
+
+                            printf("Informe o CNPJ: \n");
+                            fflush(stdin);
+                            scanf("%s", fornecedores.cnpj);
+
+                            printf("\n");
+
+                            ret = pesquisarFornecedor(fornecedores.cnpj, &fornecedores.codigo, fornecedores.nome, fornecedores.razao_social, fornecedores.inscricao_estadual,
+                                                      fornecedores.cnpj, fornecedores.end_completo, fornecedores.telefone, fornecedores.email);
+
+                            if (ret == 0)
+                            {
+                                printf("=> Fornecedor encontrado!\n");
+                                printf("=========================================\n");
+                                printf("C¢digo             : %d\n", fornecedores.codigo);
+                                printf("Nome               : %s\n", fornecedores.nome);
+                                printf("Telefone           : %s\n", fornecedores.telefone);
+                                printf("Email              : %s\n", fornecedores.email);
+                                printf("CNPJ               : %s\n", fornecedores.cnpj);
+                                printf("=========================================\n");
+                                printf("Deseja alterar este fornecedor?\n");
+                                printf("1 - Sim\n");
+                                printf("0 - NÆo\n");
+                                printf("=> ");
+                                scanf("%d", &choice);
+
+                                if (choice == 1)
+                                {
+                                    AnsiUpper(fornecedores.nome);
+                                    clearPrompt();
+                                    fflush(stdin);
+                                    printf("Indique o novo nome               : ");
+                                    scanf(" %[^\n]", fornecedores.nome);
+
+                                    fflush(stdin);
+                                    printf("Indique a nova razÆo social       : ");
+                                    scanf(" %[^\n]", fornecedores.razao_social);
+
+                                    fflush(stdin);
+                                    printf("Indique a nova inscri‡Æo estadual : ");
+                                    scanf(" %[^\n]", fornecedores.inscricao_estadual);
+
+                                    fflush(stdin);
+                                    printf("Indique o novo cnpj               : ");
+                                    scanf(" %[^\n]", fornecedores.cnpj);
+
+                                    fflush(stdin);
+                                    printf("Indique o novo endere‡o completo  : ");
+                                    scanf(" %[^\n]", fornecedores.end_completo);
+
+                                    fflush(stdin);
+                                    printf("Indique o novo telefone           : ");
+                                    scanf(" %[^\n]", fornecedores.telefone);
+
+                                    fflush(stdin);
+                                    printf("Indique o novo email              : ");
+                                    scanf(" %[^\n]", fornecedores.email);
+
+                                    ret = alterarFornecedor(fornecedores.cnpj, fornecedores);
+
+                                    if (ret == 0)
+                                    {
+                                        printf("Fornecedor alterado com sucesso!");
+                                        pausaSist();
+                                    }
+                                    else
+                                    {
+                                        printf("=> Falha ao alterar fornecedor.");
+                                        pausaSist();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                printf("=> Fornecedor nÆo encontrado!\n");
+                                pausaSist();
+                            }
+
+                            break;
+                        case 4: // ===== EXCLUIR FORNECEDOR =====
+                            clearPrompt();
+                            printf("Excluir fornecedor:\n");
+
+                            printf("Informe o CNPJ: \n");
+                            fflush(stdin);
+                            scanf("%s", fornecedores.cnpj);
+
+                            printf("\n");
+
+                            ret = pesquisarFornecedor(fornecedores.cnpj, &fornecedores.codigo, fornecedores.nome, fornecedores.razao_social, fornecedores.inscricao_estadual,
+                                                      fornecedores.cnpj, fornecedores.end_completo, fornecedores.telefone, fornecedores.email);
+
+                            if (ret == 0)
+                            {
+                                printf("=> Fornecedor encontrado!\n");
+                                printf("=========================================\n");
+                                printf("C¢digo             : %d\n", fornecedores.codigo);
+                                printf("Nome               : %s\n", fornecedores.nome);
+                                printf("Telefone           : %s\n", fornecedores.telefone);
+                                printf("Email              : %s\n", fornecedores.email);
+                                printf("CNPJ               : %s\n", fornecedores.cnpj);
+                                printf("=========================================\n");
+                                printf("Deseja excluir este fornecedor?\n");
+                                printf("1 - Sim\n");
+                                printf("0 - NÆo\n");
+                                printf("=> ");
+                                scanf("%d", &choice);
+
+                                if (choice == 1)
+                                {
+                                    ret = excluirFornecedor(fornecedores.cnpj);
+
+                                    if (ret == 0)
+                                    {
+                                        printf("Fornecedor exclu¡do com sucesso!");
+                                        pausaSist();
+                                    }
+                                    else
+                                    {
+                                        printf("=> Falha ao excluir fornecedor.");
+                                        pausaSist();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                printf("Fornecedor nÆo encontrado.");
+                                pausaSist();
+                            }
+
+                            break;
+                        default: // ===== EM CASO DE OUTRA OP€ÇO =====
+                            printf("\n[X] ERRO - Insira um valor v lido!");
+                            pausaSist();
+                            break;
+                        }
+                    }
 
                     break;
                 case 6: // Campo 6 - Produtos
@@ -351,21 +591,72 @@ int main()
                 clearPrompt();
                 printf("=> RESERVAS:\n");
                 printf("Selecione uma op‡Æo: \n");
-                printf("1 - Fazer Reserva\n");
-                printf("2 - Cancelamento\n");
-                printf("3 - Voltar\n");
+                printf("1 - Verificar disponibilidades\n");
+                printf("2 - Fazer Reserva\n");
+                printf("3 - Cancelamento\n");
+                printf("4 - Voltar\n");
                 printf("=> ");
                 scanf("%d", &choice);
-                if (choice == 3)
+                if (choice == 4)
                 {
                     break;
                 }
                 switch (choice)
                 {
-                case 1: // Fazer Reserva
+                case 1: // Verificar disponibilidade das acomoda‡äes
+
+                    printf("Como deseja verificar a disponibilidade das acomoda‡äes?\n");
+                    printf("1 - Pesquisa por Data.\n");
+                    printf("2 - Pesquisa por Categoria.\n");
+                    printf("3 - Pesquisa por Quantidade de Pessoas.\n");
+                    printf("4 - Tipo de Facilidade.\n");
+                    printf("5 - Combina‡Æo.\n");
+                    printf("=> \n");
+                    scanf("%d", &choice);
+                    switch (choice)
+                    {
+                    case 1:
+                        printf("Indique o dia e o mˆs de in¡cio (DD MM):");
+                        scanf("%d %d", &reserva.dia_iniReserva, &reserva.mes_iniReserva);
+                        printf("Indique a dura‡Æo da estadia:");
+                        scanf("%d", &reserva.tempo_Reserva);
+
+                        pesquisarReserva();
+
+                        printf("Deseja reservar alguma destas?\n");
+                        printf("1 - Sim.\n");
+                        printf("0 - NÆo.\n");
+                        printf("=> ");
+                        scanf("%d", &choice);
+
+                        if (choice == 0)
+                        {
+                            break;
+                        }
+                    case 2:
+                        printf("Indique o c¢digo da categoria que deseja reservar:");
+                        scanf("%d", &choice);
+
+                        break;
+
+                    default:
+                        break;
+                    }
+
+                    /*
+                        Reserva: este m¢dulo deve permitir que o operador verifique a disponibilidade de uma
+                        acomoda‡Æo por data, categoria de acomoda‡Æo, quantidade de pessoas, tipo de
+                        facilidade, ou por uma combina‡Æo destes crit‚rios. Por exemplo, o sistema deve
+                        permitir que o operador localize um quarto da categoria luxo, do dia 01 a 10 desse mˆs,
+                        que tenha banheira de hidromassagem e que comporte 2 adultos e 2 crian‡as. Em
+                        hip¢tese alguma deve haver sombreamento de datas para uma mesma acomoda‡Æo.
+                    */
 
                     break;
-                case 2: // Cancelamento
+                case 2: // Reservar
+
+                    break;
+                case 3: // Cancelamento
 
                     break;
                 default:
@@ -526,6 +817,7 @@ int main()
             scanf("%d", &choice);
             if (choice == 1)
             {
+                rmvTemp();
                 clearPrompt();
                 return 0;
             }
