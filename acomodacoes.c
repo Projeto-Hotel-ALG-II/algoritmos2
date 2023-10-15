@@ -86,14 +86,13 @@ int main() {
 
             case 4:
                 printf("Informe o código da categoria a ser excluída: ");
-                int codigoExcluir;
-                scanf("%d", &codigoExcluir);
-                if (excluirCategoria(codigoExcluir)) {
-                    printf("Categoria excluída com sucesso!\n");
+                int codigoExcluirCategoria;
+                scanf("%d", &codigoExcluirCategoria);
+                if (excluirCategoria(codigoExcluirCategoria)) {
+                    pausaSist();
                 } else {
-                    printf("Categoria não encontrada.\n");
+                    pausaSist();
                 }
-                pausaSist();
                 break;
 
             case 5:
@@ -146,11 +145,10 @@ int main() {
                 int codigoExcluirAcomodacao;
                 scanf("%d", &codigoExcluirAcomodacao);
                 if (excluirAcomodacao(codigoExcluirAcomodacao)) {
-                    printf("Acomodação excluída com sucesso!\n");
+                    pausaSist();
                 } else {
-                    printf("Acomodação não encontrada.\n");
+                    pausaSist();
                 }
-                pausaSist();
                 break;
 
             case 9:
