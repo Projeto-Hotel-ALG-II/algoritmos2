@@ -1,0 +1,5 @@
+1|cd 'c:\Users\minga\OneDrive\Área de Trabalho\alg2-hotel\algoritmos2\acomod\output'|100.00|4
+2|Standart|100.00|2
+4|9|100.00|3
+4|6|500.00|6
+5|Luxo|200.00|4
