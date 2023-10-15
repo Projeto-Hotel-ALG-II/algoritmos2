@@ -1,5 +1,5 @@
-#ifndef structs_hotel_h
-#define structs_hotel_h
+#ifndef STRUCTS_HOTEL_H_INCLUDED
+#define STRUCTS_HOTEL_H_INCLUDED
 
 #include <stdio.h>
 
@@ -43,7 +43,7 @@ typedef struct
 typedef struct
 {
     int codigo;
-    char descricao[140];
+    char descricao[300];
     float valor_diaria;
     int qtd_pessoas;
 } str_categ_acomodacoes;
@@ -53,11 +53,10 @@ typedef struct
  */
 typedef struct
 {
-    str_categ_acomodacoes catec_acomod;
     int codigo;
-    char descricao[140];
-    char facilidades[100];
-    char categoria[30];
+    char descricao[200];
+    char facilidades[200];
+    str_categ_acomodacoes catec_acomod;
 } str_acomodacoes;
 
 /*
