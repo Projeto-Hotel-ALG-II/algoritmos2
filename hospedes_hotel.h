@@ -35,7 +35,7 @@ int cadastrarHospede(str_hospedes hospedes)
 /*
  * Pesquisa o H¢spede (precisa ser chamado com os endere‡os de mem¢ria de todos as vari veis)
  */
-int pesquisarHospede(char pesQ_cpf[12], int *pCodigo, char *pNome, char *pEnd_Comp, char *pCpf, char *pTelefone,
+int pesquisarHospede(char pesQ_cpf[15], int *pCodigo, char *pNome, char *pEnd_Comp, char *pCpf, char *pTelefone,
                      char *pEmail, char *pSexo, char *pEstadoCiv, char *pDataNasc)
 {
     FILE *pF_hosped;
@@ -50,7 +50,7 @@ int pesquisarHospede(char pesQ_cpf[12], int *pCodigo, char *pNome, char *pEnd_Co
     while (fscanf(pF_hosped, "%d|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%c|%[^|]|%[^\n]\n", &h.codigo, h.nome, h.end_completo, h.cpf, h.telefone,
                   h.email, &h.sexo, h.estado_civil, h.data_nasc) != EOF)
     {
-        if (strcmp(h.cpf, pesQ_cpf) == 0 && h.codigo == 0)
+        if (strcmp(h.cpf, pesQ_cpf) == 0 && h.codigo != 0)
         {
             *pCodigo = h.codigo;
             strcpy(pNome, h.nome);
@@ -72,7 +72,7 @@ int pesquisarHospede(char pesQ_cpf[12], int *pCodigo, char *pNome, char *pEnd_Co
 /**
  * Faz a altera‡Æo do h¢spede (selecionado pelo CPF)
  */
-int alterarHospede(char cpf[12], str_hospedes att_hosped)
+int alterarHospede(char cpf[15], str_hospedes att_hosped)
 {
     FILE *pF_hospedes;
     FILE *pF_temp;
@@ -122,8 +122,20 @@ int alterarHospede(char cpf[12], str_hospedes att_hosped)
     fclose(pF_hospedes);
     fclose(pF_temp);
 
-    // tornando arquivo tempor rio original
-    substituiTemp("..\\data\\dados_hospedes.txt", "..\\data\\temp.txt");
+
+    // Reescrevendo os dados do arquivo tempor rio no arquivo principal
+    pF_temp = fopen("..\\data\\temp.txt", "r");
+    pF_hospedes = fopen("..\\data\\dados_hospedes.txt", "w");
+    if (pF_hospedes == NULL || pF_temp == NULL)
+    {
+        exit(1);
+    }
+
+    // fun‡Æo vai copiar os dados do arquivo tempor rio de volta para o original
+    copiarArquivo(pF_temp, pF_hospedes);
+
+    fclose(pF_temp);
+    fclose(pF_hospedes);
 
     return 0;
 }
@@ -131,7 +143,7 @@ int alterarHospede(char cpf[12], str_hospedes att_hosped)
 /**
  * Exclui o h¢spede selecionado
  */
-int excluirHospede(char cpf[12])
+int excluirHospede(char cpf[15])
 {
     // declarando ponteiros de arquivos
     FILE *pF_hospedes;
@@ -185,7 +197,19 @@ int excluirHospede(char cpf[12])
     fclose(pF_hospedes);
     fclose(pF_temp);
 
-    // tornando arquivo tempor rio original
-    substituiTemp("..\\data\\dados_hospedes.txt", "..\\data\\temp.txt");
+    // Reescrevendo os dados do arquivo tempor rio no arquivo principal
+    pF_temp = fopen("..\\data\\temp.txt", "r");
+    pF_hospedes = fopen("..\\data\\dados_hospedes.txt", "w");
+    if (pF_hospedes == NULL || pF_temp == NULL)
+    {
+        exit(2);
+    }
+
+    // fun‡Æo vai copiar os dados do arquivo tempor rio de volta para o original
+    copiarArquivo(pF_temp, pF_hospedes);
+
+    fclose(pF_temp);
+    fclose(pF_hospedes);
+
     return 0;
 }

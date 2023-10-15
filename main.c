@@ -19,11 +19,11 @@ int main()
     // STRUCTS CADASTRO E GESTÇO
     str_hotel hotel;
     str_hospedes hospedes;
-    str_acomodacoes acomod;
+    // str_acomodacoes acomod;
     str_fornecedores fornecedores;
 
     // STRUCTS RESERVAS
-    str_reservas reserva;
+    // str_reservas reserva;
 
     AnsiUpper(strcpy(hotel.nome_fantasia, "Muk-Luk Lodge")); // Nome provis¢rio pro hotel
 
@@ -331,10 +331,10 @@ int main()
                 case 3: // Campo 3 - Acomoda‡äes - Iasmim Garcia *
 
                     break;
-                case 4: // Campo 4 - Categoria de Acomoda‡äes
+                case 4: // Campo 4 - Categoria de Acomoda‡äes - Iasmim Garcia *
 
                     break;
-                case 5: // Campo 5 - Fornecedores
+                case 5: // Campo 5 - Fornecedores - Matheus Garcia *
                     while (1)
                     {
                         clearPrompt();
@@ -571,10 +571,10 @@ int main()
                     }
 
                     break;
-                case 6: // Campo 6 - Produtos
+                case 6: // Campo 6 - Produtos - JoÆo Vitor *
 
                     break;
-                case 7: // Campo 7 - Operadores
+                case 7: // Campo 7 - Operadores - Iasmim Garcia *
 
                     break;
                 default: // Nenhuma das op‡äes
@@ -586,85 +586,7 @@ int main()
             break;
 
         case 2: // M¢dulo 2 - Reservas
-            while (1)
-            {
-                clearPrompt();
-                printf("=> RESERVAS:\n");
-                printf("Selecione uma op‡Æo: \n");
-                printf("1 - Verificar disponibilidades\n");
-                printf("2 - Fazer Reserva\n");
-                printf("3 - Cancelamento\n");
-                printf("4 - Voltar\n");
-                printf("=> ");
-                scanf("%d", &choice);
-                if (choice == 4)
-                {
-                    break;
-                }
-                switch (choice)
-                {
-                case 1: // Verificar disponibilidade das acomoda‡äes
-
-                    printf("Como deseja verificar a disponibilidade das acomoda‡äes?\n");
-                    printf("1 - Pesquisa por Data.\n");
-                    printf("2 - Pesquisa por Categoria.\n");
-                    printf("3 - Pesquisa por Quantidade de Pessoas.\n");
-                    printf("4 - Tipo de Facilidade.\n");
-                    printf("5 - Combina‡Æo.\n");
-                    printf("=> \n");
-                    scanf("%d", &choice);
-                    switch (choice)
-                    {
-                    case 1:
-                        printf("Indique o dia e o mˆs de in¡cio (DD MM):");
-                        scanf("%d %d", &reserva.dia_iniReserva, &reserva.mes_iniReserva);
-                        printf("Indique a dura‡Æo da estadia:");
-                        scanf("%d", &reserva.tempo_Reserva);
-
-                        pesquisarReserva();
-
-                        printf("Deseja reservar alguma destas?\n");
-                        printf("1 - Sim.\n");
-                        printf("0 - NÆo.\n");
-                        printf("=> ");
-                        scanf("%d", &choice);
-
-                        if (choice == 0)
-                        {
-                            break;
-                        }
-                    case 2:
-                        printf("Indique o c¢digo da categoria que deseja reservar:");
-                        scanf("%d", &choice);
-
-                        break;
-
-                    default:
-                        break;
-                    }
-
-                    /*
-                        Reserva: este m¢dulo deve permitir que o operador verifique a disponibilidade de uma
-                        acomoda‡Æo por data, categoria de acomoda‡Æo, quantidade de pessoas, tipo de
-                        facilidade, ou por uma combina‡Æo destes crit‚rios. Por exemplo, o sistema deve
-                        permitir que o operador localize um quarto da categoria luxo, do dia 01 a 10 desse mˆs,
-                        que tenha banheira de hidromassagem e que comporte 2 adultos e 2 crian‡as. Em
-                        hip¢tese alguma deve haver sombreamento de datas para uma mesma acomoda‡Æo.
-                    */
-
-                    break;
-                case 2: // Reservar
-
-                    break;
-                case 3: // Cancelamento
-
-                    break;
-                default:
-                    printf("\n[X] ERRO - Insira um valor v lido!");
-                    pausaSist();
-                    break;
-                }
-            }
+            
             break;
         case 3: // M¢dulo 3 - Transa‡äes
             while (1)

@@ -1,6 +1,3 @@
-#ifndef FORNECEDORES_HOTEL_H_INCLUDED
-#define FORNECEDORES_HOTEL_H_INCLUDED
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -74,7 +71,7 @@ int pesquisarFornecedor(char cnpj_pesq[15], int *pCodigo, char *pNome, char *pRa
 int alterarFornecedor(char cnpj_forn[15], str_fornecedores att_fornec)
 {
     FILE *pF_temp, *pF_fornec;
-    str_fornecedores tmp; // struct para os dados temporï¿½rios
+    str_fornecedores tmp; // struct para os dados tempor rios
 
     // abrindo arquivos
     pF_fornec = fopen("..\\data\\dados_fornecedores.txt", "r");
@@ -83,7 +80,7 @@ int alterarFornecedor(char cnpj_forn[15], str_fornecedores att_fornec)
     while (fscanf(pF_fornec, "%d|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%[^\n]\n", &tmp.codigo, tmp.nome, tmp.razao_social, tmp.inscricao_estadual,
                   tmp.cnpj, tmp.end_completo, tmp.telefone, tmp.email) != EOF)
     {
-        // caso o fornecedor nï¿½o seja o que se deseja alterar serï¿½ copiado os dados diretamente do arquivo original para o temporï¿½rio
+        // caso o fornecedor nÆo seja o que se deseja alterar ser  copiado os dados diretamente do arquivo original para o tempor rio
         if (strcmp(tmp.cnpj, cnpj_forn) != 0)
         {
             fprintf(pF_temp, "%d|", tmp.codigo);
@@ -95,7 +92,7 @@ int alterarFornecedor(char cnpj_forn[15], str_fornecedores att_fornec)
             fprintf(pF_temp, "%s|", tmp.telefone);
             fprintf(pF_temp, "%s\n", tmp.email);
         }
-        // caso o fornecedor seja o que se deseja alterar serï¿½ escrito no arquivo temporï¿½rio os novos dados
+        // caso o fornecedor seja o que se deseja alterar ser  escrito no arquivo tempor rio os novos dados
         else
         {
             fprintf(pF_temp, "%d|", att_fornec.codigo);
@@ -113,8 +110,19 @@ int alterarFornecedor(char cnpj_forn[15], str_fornecedores att_fornec)
     fclose(pF_fornec);
     fclose(pF_temp);
 
-    // torna arquivo temporï¿½rio original
-    substituiTemp("..\\data\\dados_fornecedores.txt", "..\\data\\temp.txt");
+    // Reescrevendo os dados do arquivo tempor rio no arquivo principal
+    pF_temp = fopen("..\\data\\temp.txt", "r");
+    pF_fornec = fopen("..\\data\\dados_fornecedores.txt", "w");
+    if (pF_fornec == NULL || pF_temp == NULL)
+    {
+        exit(2);
+    }
+
+    // fun‡Æo vai copiar os dados do arquivo tempor rio de volta para o original
+    copiarArquivo(pF_temp, pF_fornec);
+
+    fclose(pF_temp);
+    fclose(pF_fornec);
 
     return 0;
 }
@@ -122,7 +130,7 @@ int alterarFornecedor(char cnpj_forn[15], str_fornecedores att_fornec)
 int excluirFornecedor(char cnpj_forn[15])
 {
     FILE *pF_temp, *pF_fornec;
-    str_fornecedores tmp; // struct para os dados temporï¿½rios
+    str_fornecedores tmp; // struct para os dados tempor rios
     // abrindo arquivos
     pF_fornec = fopen("..\\data\\dados_fornecedores.txt", "r");
     pF_temp = fopen("..\\data\\temp.txt", "w");
@@ -130,7 +138,7 @@ int excluirFornecedor(char cnpj_forn[15])
     while (fscanf(pF_fornec, "%d|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%[^\n]\n", &tmp.codigo, tmp.nome, tmp.razao_social, tmp.inscricao_estadual,
                   tmp.cnpj, tmp.end_completo, tmp.telefone, tmp.email) != EOF)
     {
-        // caso o fornecedor nï¿½o seja o que se deseja excluir, serï¿½ copiado os dados diretamente do arquivo original para o temporï¿½rio
+        // caso o fornecedor nÆo seja o que se deseja excluir, ser  copiado os dados diretamente do arquivo original para o tempor rio
         if (strcmp(tmp.cnpj, cnpj_forn) != 0)
         {
             fprintf(pF_temp, "%d|", tmp.codigo);
@@ -142,7 +150,7 @@ int excluirFornecedor(char cnpj_forn[15])
             fprintf(pF_temp, "%s|", tmp.telefone);
             fprintf(pF_temp, "%s\n", tmp.email);
         }
-        // caso o fornecedor seja o que se deseja excluir, ele serï¿½ escrito no arquivo temporï¿½rio sï¿½ que com cï¿½digo igual a 0
+        // caso o fornecedor seja o que se deseja excluir, ele ser  escrito no arquivo tempor rio s¢ que com c¢digo igual a 0
         else
         {
             fprintf(pF_temp, "0|"); // fornecedor excluido - codigo = 0
@@ -160,10 +168,19 @@ int excluirFornecedor(char cnpj_forn[15])
     fclose(pF_fornec);
     fclose(pF_temp);
 
-    // torna arquivo temporï¿½rio original
-    substituiTemp("..\\data\\dados_fornecedores.txt", "..\\data\\temp.txt");
+    // Reescrevendo os dados do arquivo tempor rio no arquivo principal
+    pF_temp = fopen("..\\data\\temp.txt", "r");
+    pF_fornec = fopen("..\\data\\dados_fornecedores.txt", "w");
+    if (pF_fornec == NULL || pF_temp == NULL)
+    {
+        exit(2);
+    }
+
+    // fun‡Æo vai copiar os dados do arquivo tempor rio de volta para o original
+    copiarArquivo(pF_temp, pF_fornec);
+
+    fclose(pF_temp);
+    fclose(pF_fornec);
 
     return 0;
 }
-
-#endif

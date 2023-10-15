@@ -1,44 +1,45 @@
-#ifndef STRUCTS_HOTEL_H_INCLUDED
-#define STRUCTS_HOTEL_H_INCLUDED
+#ifndef structs_hotel_h
+#define structs_hotel_h
 
 #include <stdio.h>
 
 /*
- * Struct Hotel - Guarda os dados do Hotel em questÃ†o
+ * Struct Hotel - Guarda os dados do Hotel em questÆo
  */
 typedef struct
 {
     char nome_fantasia[50];
-    char razao_soc[50];
-    char inscricao_estadual[16];
-    char cnpj[19];
+    char razao_soc[100];
+    char inscricao_estadual[20]; // Varia dependendo do estado
+    char cnpj[19];               // XX.XXX.XXX/YYYY-ZZ
     char end_completo[100];
-    char telefone[15];
+    char telefone[16]; // (ZZ) YXXXX-XXXX
     char email[50];
     char nome_responsavel[50];
-    char tel_responsavel[15];
-    char horario_checkin[6];
+    char tel_responsavel[16]; // (ZZ) YXXXX-XXXX
+    char horario_checkin[6];  // XX:XX
     char horario_checkout[6];
     float margem_lucro;
 } str_hotel;
+
 /*
- * Struct HÂ¢spedes - Guarda os dados dos HÂ¢spedes do hotel
+ * Struct H¢spedes - Guarda os dados dos H¢spedes do hotel
  */
 typedef struct
 {
     int codigo;
     char nome[50];
     char end_completo[100];
-    char cpf[15];
-    char telefone[15];
+    char cpf[15];      // XXX.XXX.XXX-YY
+    char telefone[16]; // (ZZ) YXXXX-XXXX
     char email[50];
-    char sexo;
+    char sexo; // F, M ou N
     char estado_civil[15];
-    char data_nasc[11];
+    char data_nasc[11]; // DD/MM/AAAA
 } str_hospedes;
 
 /*
- * Sub-Struct de 'Acomodacoes' - Guarda as caracterÂ¡sticas das acomodaâ€¡Ã¤es e â€š acessada atravâ€šs da struct Acomodacoes
+ * Sub-Struct de 'Acomodacoes' - Guarda as caracter¡sticas das acomoda‡äes e ‚ acessada atrav‚s da struct Acomodacoes
  */
 typedef struct
 {
@@ -49,23 +50,23 @@ typedef struct
 } str_categ_acomodacoes;
 
 /*
- * Struct Acomodacoes - Guarda as informaâ€¡Ã¤es das acomodaâ€¡Ã¤es
+ * Struct Acomodacoes - Guarda as informa‡äes das acomoda‡äes
  */
 typedef struct
 {
+    str_categ_acomodacoes catec_acomod;
     int codigo;
     char descricao[200];
     char facilidades[200];
-    str_categ_acomodacoes catec_acomod;
 } str_acomodacoes;
 
 /*
- * Struct Produtos - Guarda as informaâ€¡Ã¤es dos produtos
+ * Struct Produtos - Guarda as informa‡äes dos produtos
  */
 typedef struct
 {
     int codigo;
-    char descricao[30];
+    char descricao[40];
     int estoque;
     int estoque_min;
     float preco_custo;
@@ -79,11 +80,11 @@ typedef struct
 {
     int codigo;
     char nome[50];
-    char razao_social[50];
-    int inscricao_estadual;
-    int cnpj;
+    char razao_social[100];
+    char inscricao_estadual[20]; // Varia de estado para estado
+    char cnpj[19];               // XX.XXX.XXX/YYYY-ZZ
     char end_completo[100];
-    int telefone;
+    char telefone[16]; // (XX) YZZZZ-ZZZZ
     char email[50];
 } str_fornecedores;
 
@@ -95,8 +96,19 @@ typedef struct
     int codigo;
     char nome[50];
     char usuario[20];
-    int senha;
-    /*? PermissÃ¤es;*/
+    char senha[9]; // 8 caracteres
+    /*? Permissäes;*/
 } str_op_sistemas;
+
+typedef struct
+{
+    int codigo;
+    int dia_iniReserva;
+    int mes_iniReserva;
+    int dia_fimReserva;
+    int mes_fimReserva;
+    int tempo_Reserva; // em dias
+    str_acomodacoes acomod;
+} str_reservas;
 
 #endif
