@@ -10,7 +10,7 @@
 
 int main()
 {
-    str_reservas reservaDados[15], reserva;
+    str_reservas reservaDados[5], reserva;
     int ret, choice;
     while (1)
     {
@@ -47,7 +47,7 @@ int main()
                 printf("Indique a dura‡Æo da estadia: %d %d", reserva.dia_iniReserva, reserva.mes_iniReserva);
                 scanf("%d", &reserva.tempo_Reserva);
 
-                ret = pesquisarDisp_porDia(reserva, &reservaDados);
+                ret = pesquisarDisp_porDia(reserva, &reservaDados[0], &reservaDados[1], &reservaDados[2], &reservaDados[3], &reservaDados[4]);
                 if (ret == 0)
                 {
                     printf("Nenhuma acomoda‡Æo dispon¡vel nesta data");

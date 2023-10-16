@@ -32,7 +32,8 @@ int realizarReserva(str_reservas reserva)
     return 0;
 }
 
-int pesquisarDisp_porDia(str_reservas resPesq, str_reservas *pReserva[15])
+int pesquisarDisp_porDia(str_reservas resPesq, str_reservas *pReserva1, str_reservas *pReserva2,
+                         str_reservas *pReserva3, str_reservas *pReserva4, str_reservas *pReserva5)
 {
     str_reservas resRead;
     str_reservas acomodRead;
@@ -53,7 +54,7 @@ int pesquisarDisp_porDia(str_reservas resPesq, str_reservas *pReserva[15])
         while ((fscanf(pF_reservas, "%d|%d|%d|%f|%d/%d|%d/%d|%d\n", &resRead.codigo, &resRead.acomod.codigo, &resRead.acomod.catec_acomod.codigo,
                        &resRead.acomod.catec_acomod.valor_diaria, &resRead.dia_iniReserva, &resRead.mes_iniReserva, &resRead.dia_fimReserva,
                        &resRead.mes_fimReserva, &resRead.tempo_Reserva) != EOF) ||
-               (cont < 10))
+               (cont < 5))
         {
 
             // dado: dia e um mes 22/10
@@ -63,8 +64,66 @@ int pesquisarDisp_porDia(str_reservas resPesq, str_reservas *pReserva[15])
                  (resPesq.dia_iniReserva < resRead.dia_fimReserva && resPesq.mes_iniReserva > resRead.mes_fimReserva && resPesq.ano_iniReserva >= resRead.ano_fimReserva) ||
                  (resPesq.dia_iniReserva < resRead.dia_fimReserva && resPesq.mes_iniReserva < resRead.mes_fimReserva && resPesq.ano_iniReserva > resRead.ano_fimReserva)))
             {
-                pReserva[i]->
-                cont++;
+                if (cont == 0)
+                {
+                    pReserva1->acomod.codigo = acomodRead.acomod.codigo;
+                    strcpy(pReserva1->acomod.descricao, acomodRead.acomod.descricao);
+                    strcpy(pReserva1->acomod.facilidades, acomodRead.acomod.facilidades);
+                    pReserva1->acomod.catec_acomod.codigo = acomodRead.acomod.catec_acomod.codigo;
+                    strcpy(pReserva1->acomod.catec_acomod.descricao, acomodRead.acomod.catec_acomod.descricao);
+                    pReserva1->acomod.catec_acomod.valor_diaria = acomodRead.acomod.catec_acomod.valor_diaria;
+                    pReserva1->acomod.catec_acomod.qtd_pessoas = acomodRead.acomod.catec_acomod.qtd_pessoas;
+
+                    cont++
+                }
+                else if (cont == 1)
+                {
+                    pReserva2->acomod.codigo = acomodRead.acomod.codigo;
+                    strcpy(pReserva2->acomod.descricao, acomodRead.acomod.descricao);
+                    strcpy(pReserva2->acomod.facilidades, acomodRead.acomod.facilidades);
+                    pReserva2->acomod.catec_acomod.codigo = acomodRead.acomod.catec_acomod.codigo;
+                    strcpy(pReserva2->acomod.catec_acomod.descricao, acomodRead.acomod.catec_acomod.descricao);
+                    pReserva2->acomod.catec_acomod.valor_diaria = acomodRead.acomod.catec_acomod.valor_diaria;
+                    pReserva2->acomod.catec_acomod.qtd_pessoas = acomodRead.acomod.catec_acomod.qtd_pessoas;
+
+                    cont++
+                }
+                else if (cont == 2)
+                {
+                    pReserva3->acomod.codigo = acomodRead.acomod.codigo;
+                    strcpy(pReserva3->acomod.descricao, acomodRead.acomod.descricao);
+                    strcpy(pReserva3->acomod.facilidades, acomodRead.acomod.facilidades);
+                    pReserva3->acomod.catec_acomod.codigo = acomodRead.acomod.catec_acomod.codigo;
+                    strcpy(pReserva3->acomod.catec_acomod.descricao, acomodRead.acomod.catec_acomod.descricao);
+                    pReserva3->acomod.catec_acomod.valor_diaria = acomodRead.acomod.catec_acomod.valor_diaria;
+                    pReserva3->acomod.catec_acomod.qtd_pessoas = acomodRead.acomod.catec_acomod.qtd_pessoas;
+
+                    cont++
+                }
+                else if (cont == 3)
+                {
+                    pReserva4->acomod.codigo = acomodRead.acomod.codigo;
+                    strcpy(pReserva4->acomod.descricao, acomodRead.acomod.descricao);
+                    strcpy(pReserva4->acomod.facilidades, acomodRead.acomod.facilidades);
+                    pReserva4->acomod.catec_acomod.codigo = acomodRead.acomod.catec_acomod.codigo;
+                    strcpy(pReserva4->acomod.catec_acomod.descricao, acomodRead.acomod.catec_acomod.descricao);
+                    pReserva4->acomod.catec_acomod.valor_diaria = acomodRead.acomod.catec_acomod.valor_diaria;
+                    pReserva4->acomod.catec_acomod.qtd_pessoas = acomodRead.acomod.catec_acomod.qtd_pessoas;
+
+                    cont++
+                }
+                else if (cont == 4)
+                {
+                    pReserva5->acomod.codigo = acomodRead.acomod.codigo;
+                    strcpy(pReserva5->acomod.descricao, acomodRead.acomod.descricao);
+                    strcpy(pReserva5->acomod.facilidades, acomodRead.acomod.facilidades);
+                    pReserva5->acomod.catec_acomod.codigo = acomodRead.acomod.catec_acomod.codigo;
+                    strcpy(pReserva5->acomod.catec_acomod.descricao, acomodRead.acomod.catec_acomod.descricao);
+                    pReserva5->acomod.catec_acomod.valor_diaria = acomodRead.acomod.catec_acomod.valor_diaria;
+                    pReserva5->acomod.catec_acomod.qtd_pessoas = acomodRead.acomod.catec_acomod.qtd_pessoas;
+
+                    cont++
+                }
             }
         }
     }
