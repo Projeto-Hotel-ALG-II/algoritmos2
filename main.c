@@ -10,6 +10,8 @@
 // FUNÄÂES: GEST∂O E CADASTROS
 #include "hospedes_hotel.h"
 #include "fornecedores_hotel.h"
+#include "cadastro_operador.h"
+#include "cadastro_acomodacoes.h"
 
 // FUNÄÂES: RESERVAS
 #include "reservas_hotel.h"
@@ -19,13 +21,13 @@ int main()
     // STRUCTS CADASTRO E GEST«O
     str_hotel hotel;
     str_hospedes hospedes;
-    // str_acomodacoes acomod;
     str_fornecedores fornecedores;
+    str_op_sistemas operador;
+    str_categ_acomodacoes categoria;
+    str_acomodacoes acomodacao;
 
     // STRUCTS RESERVAS
     // str_reservas reserva;
-
-    AnsiUpper(strcpy(hotel.nome_fantasia, "Muk-Luk Lodge")); // Nome provis¢rio pro hotel
 
     int choice; // variavel armazena as escolhas feitas pelo usu†rio
     int ret;    // variavel armazena os dados retornados das funá‰es
@@ -36,7 +38,8 @@ int main()
     // Laáo de repetiá∆o principal
     while (1)
     {
-        choice = 0; // evitando lixo de memoria
+        AnsiUpper(strcpy(hotel.nome_fantasia, "Muk-Luk Lodge")); // Nome provis¢rio pro hotel
+        choice = 0;                                              // evitando lixo de memoria
 
         clearPrompt(); // Limpando prompt
 
@@ -64,14 +67,13 @@ int main()
                 printf("1 - Hotel\n");
                 printf("2 - H¢spedes\n");
                 printf("3 - Acomodaá‰es\n");
-                printf("4 - Categoria de Acomodaá‰es\n");
-                printf("5 - Fornecedores\n");
-                printf("6 - Produtos\n");
-                printf("7 - Operadores\n");
-                printf("8 - Voltar\n");
+                printf("4 - Fornecedores\n");
+                printf("5 - Produtos\n");
+                printf("6 - Operadores\n");
+                printf("7 - Voltar\n");
                 printf("=> ");
                 scanf("%d", &choice);
-                if (choice == 8)
+                if (choice == 7)
                 {
                     break;
                 }
@@ -161,7 +163,7 @@ int main()
                             fflush(stdin);
                             scanf("%s", hospedes.cpf);
 
-                            ret = pesquisarHospede(hospedes.cpf, &hospedes.codigo, hospedes.nome, hospedes.end_completo, hospedes.cpf, hospedes.telefone, hospedes.email, &hospedes.sexo, hospedes.estado_civil, hospedes.data_nasc);
+                            ret = pesquisarHospede(hospedes.cpf, &hospedes);
 
                             if (ret == 0)
                             {
@@ -194,7 +196,7 @@ int main()
 
                             printf("\n");
 
-                            ret = pesquisarHospede(hospedes.cpf, &hospedes.codigo, hospedes.nome, hospedes.end_completo, hospedes.cpf, hospedes.telefone, hospedes.email, &hospedes.sexo, hospedes.estado_civil, hospedes.data_nasc);
+                            ret = pesquisarHospede(hospedes.cpf, &hospedes);
 
                             if (ret == 0)
                             {
@@ -281,7 +283,7 @@ int main()
 
                             printf("\n");
 
-                            ret = pesquisarHospede(hospedes.cpf, &hospedes.codigo, hospedes.nome, hospedes.end_completo, hospedes.cpf, hospedes.telefone, hospedes.email, &hospedes.sexo, hospedes.estado_civil, hospedes.data_nasc);
+                            ret = pesquisarHospede(hospedes.cpf, &hospedes);
 
                             if (ret == 0)
                             {
@@ -328,13 +330,180 @@ int main()
                         }
                     }
                     break;
+                    
                 case 3: // Campo 3 - Acomodaá‰es - Iasmim Garcia *
+                    while (1)
+                    {
+                        clearPrompt();
+                        printf("Cadastro e Gest∆o de Acomodaá‰es e Categorias:\n");
+                        printf("1 - Cadastrar Categoria de Acomodaá∆o\n");
+                        printf("2 - Pesquisar Categoria de Acomodaá∆o\n");
+                        printf("3 - Editar Categoria de Acomodaá∆o\n");
+                        printf("4 - Excluir Categoria de Acomodaá∆o\n");
+                        printf("5 - Cadastrar Acomodaá∆o\n");
+                        printf("6 - Pesquisar Acomodaá∆o\n");
+                        printf("7 - Editar Acomodaá∆o\n");
+                        printf("8 - Excluir Acomodaá∆o\n");
+                        printf("9 - Listar Categorias\n");
+                        printf("10 - Listar Acomodaá‰es\n");
+                        printf("11 - Sair\n");
+                        printf("=> ");
+                        scanf("%d", &choice);
 
-                    break;
-                case 4: // Campo 4 - Categoria de Acomodaá‰es - Iasmim Garcia *
+                        if(choice == 11){
+                            break;
+                        }
 
+                        switch (choice)
+                        {
+                        case 1:
+                            printf("Informe a descriá∆o da categoria: ");
+                            scanf(" %[^\n]", categoria.descricao);
+                            printf("Informe o valor da di√°ria: ");
+                            scanf("%f", &categoria.valor_diaria);
+                            printf("Informe a quantidade de pessoas: ");
+                            scanf("%d", &categoria.qtd_pessoas);
+                            cadastrarCategoria(categoria);
+                            pausaSist();
+                            break;
+
+                        case 2:
+                            printf("Informe o c¢digo da categoria de acomodaá∆o: ");
+                            int codigoCategoria;
+                            scanf("%d", &codigoCategoria);
+
+                            if (pesquisarCategoria(codigoCategoria, &categoria))
+                            {
+                                printf("Categoria de Acomodaá∆o encontrada!\n");
+                                printf("C¢digo: %d\n", categoria.codigo);
+                                printf("Descriá∆o: %s\n", categoria.descricao);
+                                printf("Valor da Di√°ria: %.2f\n", categoria.valor_diaria);
+                                printf("Quantidade de Pessoas: %d\n", categoria.qtd_pessoas);
+                            }
+                            else
+                            {
+                                printf("Categoria de Acomodaá∆o n∆o encontrada.\n");
+                            }
+
+                            pausaSist();
+                            break;
+
+                        case 3:
+                            printf("Informe o c¢digo da categoria a ser editada: ");
+                            int codigoEditar;
+                            scanf("%d", &codigoEditar);
+                            if (pesquisarCategoria(codigoEditar, &categoria))
+                            {
+                                printf("Informe a nova descriá∆o da categoria: ");
+                                scanf(" %[^\n]", categoria.descricao);
+                                printf("Informe o novo valor da di√°ria: ");
+                                scanf("%f", &categoria.valor_diaria);
+                                printf("Informe a nova quantidade de pessoas: ");
+                                scanf("%d", &categoria.qtd_pessoas);
+                                editarCategoria(codigoEditar, categoria);
+                            }
+                            pausaSist();
+                            break;
+
+                        case 4:
+                            printf("Informe o c¢digo da categoria a ser exclu√≠da: ");
+                            int codigoExcluirCategoria;
+                            scanf("%d", &codigoExcluirCategoria);
+                            if (excluirCategoria(codigoExcluirCategoria))
+                            {
+                                pausaSist();
+                            }
+                            else
+                            {
+                                pausaSist();
+                            }
+                            break;
+
+                        case 5:
+                            printf("Informe a descriá∆o da acomodaá∆o: ");
+                            scanf(" %[^\n]", acomodacao.descricao);
+                            printf("Informe as facilidades: ");
+                            scanf(" %[^\n]", acomodacao.facilidades);
+                            printf("Informe o c¢digo da categoria da acomodaá∆o: ");
+                            scanf("%d", &acomodacao.catec_acomod.codigo);
+                            if (pesquisarCategoria(acomodacao.catec_acomod.codigo, &acomodacao.catec_acomod))
+                            {
+                                cadastrarAcomodacao(acomodacao);
+                            }
+                            else
+                            {
+                                printf("Categoria de acomodaá∆o n∆o encontrada.\n");
+                            }
+                            pausaSist();
+                            break;
+
+                        case 6:
+                            printf("Informe o c¢digo da acomodaá∆o: ");
+                            int codigoAcomodacao;
+                            scanf("%d", &codigoAcomodacao);
+                            if (pesquisarAcomodacao(codigoAcomodacao, &acomodacao))
+                            {
+                                // Acomodaá∆o encontrada
+                            }
+                            pausaSist();
+                            break;
+
+                        case 7:
+                            printf("Informe o c¢digo da acomodaá∆o a ser editada: ");
+                            int codigoEditarAcomodacao;
+                            scanf("%d", &codigoEditarAcomodacao);
+                            if (pesquisarAcomodacao(codigoEditarAcomodacao, &acomodacao))
+                            {
+                                printf("Informe a nova descriá∆o da acomodaá∆o: ");
+                                scanf(" %[^\n]", acomodacao.descricao);
+                                printf("Informe as novas facilidades: ");
+                                scanf(" %[^\n]", acomodacao.facilidades);
+                                printf("Informe o novo c¢digo da categoria da acomodaá∆o: ");
+                                scanf("%d", &acomodacao.catec_acomod.codigo);
+                                if (pesquisarCategoria(acomodacao.catec_acomod.codigo, &acomodacao.catec_acomod))
+                                {
+                                    editarAcomodacao(codigoEditarAcomodacao, acomodacao);
+                                }
+                                else
+                                {
+                                    printf("Categoria de acomodaá∆o n∆o encontrada.\n");
+                                }
+                            }
+                            pausaSist();
+                            break;
+
+                        case 8:
+                            printf("Informe o c¢digo da acomodaá∆o a ser exclu√≠da: ");
+                            int codigoExcluirAcomodacao;
+                            scanf("%d", &codigoExcluirAcomodacao);
+                            if (excluirAcomodacao(codigoExcluirAcomodacao))
+                            {
+                                pausaSist();
+                            }
+                            else
+                            {
+                                pausaSist();
+                            }
+                            break;
+
+                        case 9:
+                            listarCategorias();
+                            pausaSist();
+                            break;
+
+                        case 10:
+                            listarAcomodacoes();
+                            pausaSist();
+                            break;
+
+                        default:
+                            printf("Opá∆o inv√°lida. Tente novamente.\n");
+                            pausaSist();
+                            break;
+                        }
+                    }
                     break;
-                case 5: // Campo 5 - Fornecedores - Matheus Garcia *
+                case 4: // Campo 5 - Fornecedores - Matheus Garcia *
                     while (1)
                     {
                         clearPrompt();
@@ -406,8 +575,7 @@ int main()
                             fflush(stdin);
                             scanf("%s", fornecedores.cnpj);
 
-                            ret = pesquisarFornecedor(fornecedores.cnpj, &fornecedores.codigo, fornecedores.nome, fornecedores.razao_social, fornecedores.inscricao_estadual,
-                                                      fornecedores.cnpj, fornecedores.end_completo, fornecedores.telefone, fornecedores.email);
+                            ret = pesquisarFornecedor(fornecedores.cnpj, &fornecedores);
 
                             if (ret == 0)
                             {
@@ -439,8 +607,7 @@ int main()
 
                             printf("\n");
 
-                            ret = pesquisarFornecedor(fornecedores.cnpj, &fornecedores.codigo, fornecedores.nome, fornecedores.razao_social, fornecedores.inscricao_estadual,
-                                                      fornecedores.cnpj, fornecedores.end_completo, fornecedores.telefone, fornecedores.email);
+                            ret = pesquisarFornecedor(fornecedores.cnpj, &fornecedores);
 
                             if (ret == 0)
                             {
@@ -521,8 +688,7 @@ int main()
 
                             printf("\n");
 
-                            ret = pesquisarFornecedor(fornecedores.cnpj, &fornecedores.codigo, fornecedores.nome, fornecedores.razao_social, fornecedores.inscricao_estadual,
-                                                      fornecedores.cnpj, fornecedores.end_completo, fornecedores.telefone, fornecedores.email);
+                            ret = pesquisarFornecedor(fornecedores.cnpj, &fornecedores);
 
                             if (ret == 0)
                             {
@@ -571,10 +737,203 @@ int main()
                     }
 
                     break;
-                case 6: // Campo 6 - Produtos - Jo∆o Vitor *
+                case 5: // Campo 6 - Produtos - Jo∆o Vitor *
 
                     break;
-                case 7: // Campo 7 - Operadores - Iasmim Garcia *
+                case 6: // Campo 7 - Operadores - Iasmim Garcia *
+                    while (1)
+                    {
+                        clearPrompt();
+                        printf("Cadastro e Gest∆o de Operadores do Sistema:\n");
+                        printf("1 - Cadastrar\n");
+                        printf("2 - Pesquisar\n");
+                        printf("3 - Alterar\n");
+                        printf("4 - Excluir\n");
+                        printf("5 - Voltar\n");
+                        printf("=> ");
+                        scanf("%d", &choice);
+
+                        if (choice == 5)
+                        {
+                            break; // Sai do loop quando a escolha for 5
+                        }
+
+                        switch (choice)
+                        {
+                        case 1: // CADASTRAR OPERADOR
+                            // Recolhendo dados do novo operador
+                            fflush(stdin);
+                            printf("Indique o nome   : ");
+                            scanf(" %[^\n]", operador.nome);
+
+                            fflush(stdin);
+                            printf("Indique o login  : ");
+                            scanf(" %[^\n]", operador.usuario);
+
+                            fflush(stdin);
+                            printf("Indique a senha  : ");
+                            scanf(" %[^\n]", operador.senha);
+
+                            fflush(stdin);
+                            printf("Indique as permiss‰es (separadas por v°rgulas) : ");
+                            scanf(" %[^\n]", operador.permissoes);
+
+                            // Funá∆o cadastra o operador
+                            ret = cadastrarOperador(operador);
+
+                            if (ret == 0)
+                            {
+                                printf("\nOperador cadastrado com sucesso!");
+                                pausaSist();
+                            }
+                            else
+                            {
+                                printf("Erro ao acessar o arquivo operadores.txt\n");
+                                pausaSist();
+                            }
+                            break;
+
+                        case 2: // PESQUISAR OPERADOR
+                            printf("Pesquisar Operador: \n");
+                            printf("Login do operador: ");
+                            fflush(stdin);
+                            scanf("%s", operador.usuario);
+
+                            ret = pesquisarOperadorPorUsuario(operador.usuario, &operador);
+
+                            if (ret == 0)
+                            {
+                                printf("=> Operador encontrado!\n");
+                                printf("=========================================\n");
+                                printf("C¢digo      : %d\n", operador.codigo);
+                                printf("Nome        : %s\n", operador.nome);
+                                printf("Login       : %s\n", operador.usuario);
+                                printf("Permiss‰es  : %s\n", operador.permissoes);
+                                pausaSist();
+                            }
+                            else
+                            {
+                                printf("=> Operador n∆o encontrado!\n");
+                                pausaSist();
+                            }
+                            break;
+
+                        case 3: // ALTERAR OPERADOR
+                            clearPrompt();
+                            printf("Alterar operador:\n");
+                            printf("Informe o login: \n");
+                            fflush(stdin);
+                            scanf("%s", operador.usuario);
+
+                            printf("\n");
+                            ret = pesquisarOperadorPorUsuario(operador.usuario, &operador);
+
+                            if (ret == 0)
+                            {
+                                printf("=> Operador encontrado!\n");
+                                printf("=========================================\n");
+                                printf("C¢digo      : %d\n", operador.codigo);
+                                printf("Nome        : %s\n", operador.nome);
+                                printf("Login       : %s\n", operador.usuario);
+                                printf("Permiss‰es  : %s\n", operador.permissoes);
+                                printf("=========================================\n");
+                                printf("Deseja alterar este operador?\n");
+                                printf("1 - Sim\n");
+                                printf("0 - N∆o\n");
+                                printf("=> ");
+                                scanf("%d", &choice);
+
+                                if (choice == 1)
+                                {
+                                    clearPrompt();
+                                    fflush(stdin);
+                                    printf("Indique o novo nome        : ");
+                                    scanf(" %[^\n]", operador.nome);
+
+                                    fflush(stdin);
+                                    printf("Indique a nova senha       : ");
+                                    scanf(" %[^\n]", operador.senha);
+
+                                    fflush(stdin);
+                                    printf("Indique as novas permiss‰es (separadas por v°rgulas) : ");
+                                    scanf(" %[^\n]", operador.permissoes);
+
+                                    ret = editarOperador(operador.usuario, operador);
+
+                                    if (ret == 0)
+                                    {
+                                        printf("Operador alterado com sucesso!");
+                                        pausaSist();
+                                    }
+                                    else
+                                    {
+                                        printf("=> Falha ao alterar operador.");
+                                        pausaSist();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                printf("=> Operador n∆o encontrado!\n");
+                                pausaSist();
+                            }
+                            break;
+
+                        case 4: // EXCLUIR OPERADOR
+                            clearPrompt();
+                            printf("Excluir operador:\n");
+                            printf("Informe o login: \n");
+                            fflush(stdin);
+                            scanf("%s", operador.usuario);
+
+                            printf("\n");
+
+                            ret = pesquisarOperadorPorUsuario(operador.usuario, &operador);
+
+                            if (ret == 0)
+                            {
+                                printf("=> Operador encontrado!\n");
+                                printf("=========================================\n");
+                                printf("C¢digo      : %d\n", operador.codigo);
+                                printf("Nome        : %s\n", operador.nome);
+                                printf("Login       : %s\n", operador.usuario);
+                                printf("Permiss‰es  : %s\n", operador.permissoes);
+                                printf("=========================================\n");
+                                printf("Deseja excluir este operador?\n");
+                                printf("1 - Sim\n");
+                                printf("0 - N∆o\n");
+                                printf("=> ");
+                                scanf("%d", &choice);
+
+                                if (choice == 1)
+                                {
+                                    ret = excluirOperador(operador.usuario);
+
+                                    if (ret == 0)
+                                    {
+                                        printf("Operador exclu°do com sucesso!");
+                                        pausaSist();
+                                    }
+                                    else
+                                    {
+                                        printf("=> Falha ao excluir operador.");
+                                        pausaSist();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                printf("Operador n∆o encontrado.");
+                                pausaSist();
+                            }
+                            break;
+
+                        default: // EM CASO DE OUTRA OPÄ«O
+                            printf("\n[X] ERRO - Insira um valor V†lido!");
+                            pausaSist();
+                            break;
+                        }
+                    }
 
                     break;
                 default: // Nenhuma das opá‰es
@@ -586,7 +945,7 @@ int main()
             break;
 
         case 2: // M¢dulo 2 - Reservas
-            
+
             break;
         case 3: // M¢dulo 3 - Transaá‰es
             while (1)
