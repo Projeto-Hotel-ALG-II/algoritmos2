@@ -1,1 +1,1 @@
-1|Simples|4 camas de solteiro, ventilador, secador de cabelo|1|cd 'c:\Users\minga\OneDrive\√Årea de Trabalho\alg2-hotel\algoritmos2\acomod\output'|100.00|4
+1|quarto 21|ar-condicionado, televis∆o, umidificador, banheira|2|Padr∆o Fam°lia|220.90|5

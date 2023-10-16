@@ -97,7 +97,7 @@ typedef struct
     char nome[50];
     char usuario[20];
     char senha[9]; // 8 caracteres
-    /*? Permissäes;*/
+    char permissoes[200];
 } str_op_sistemas;
 
 typedef struct

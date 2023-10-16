@@ -35,8 +35,7 @@ int cadastrarFornecedor(str_fornecedores fornecedor)
 /**
  * Faz a pesquisa do fornecedor
  */
-int pesquisarFornecedor(char cnpj_pesq[15], int *pCodigo, char *pNome, char *pRazSocial, char *pInscEstadual, char *pCnpj, char *pEndCompleto,
-                        char *pTelefone, char *pEmail)
+int pesquisarFornecedor(char cnpj_pesq[15], str_fornecedores *pFornec)
 {
     FILE *pF_fornec;
     pF_fornec = fopen("..\\data\\dados_fornecedores.txt", "r");
@@ -47,18 +46,19 @@ int pesquisarFornecedor(char cnpj_pesq[15], int *pCodigo, char *pNome, char *pRa
         exit(1);
     }
 
-    while (fscanf(pF_fornec, "%d|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%[^\n]\n", &f.codigo, f.nome, f.razao_social, f.inscricao_estadual, f.cnpj, f.end_completo, f.telefone, f.email) != EOF)
+    while (fscanf(pF_fornec, "%d|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%[^\n]\n", &f.codigo, f.nome, f.razao_social,
+                  f.inscricao_estadual, f.cnpj, f.end_completo, f.telefone, f.email) != EOF)
     {
         if (strcmp(cnpj_pesq, f.cnpj) == 0 && f.codigo != 0)
         {
-            *pCodigo = f.codigo;
-            strcpy(pNome, f.nome);
-            strcpy(pRazSocial, f.razao_social);
-            strcpy(pInscEstadual, f.inscricao_estadual);
-            strcpy(pCnpj, f.cnpj);
-            strcpy(pEndCompleto, f.end_completo);
-            strcpy(pTelefone, f.telefone);
-            strcpy(pEmail, f.email);
+            pFornec->codigo = f.codigo;
+            strcpy(pFornec->nome, f.nome);
+            strcpy(pFornec->razao_social, f.razao_social);
+            strcpy(pFornec->inscricao_estadual, f.inscricao_estadual);
+            strcpy(pFornec->cnpj, f.cnpj);
+            strcpy(pFornec->end_completo, f.end_completo);
+            strcpy(pFornec->telefone, f.telefone);
+            strcpy(pFornec->email, f.email);
             return 0;
         }
     }

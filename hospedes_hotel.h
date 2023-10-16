@@ -35,8 +35,7 @@ int cadastrarHospede(str_hospedes hospedes)
 /*
  * Pesquisa o H¢spede (precisa ser chamado com os endere‡os de mem¢ria de todos as vari veis)
  */
-int pesquisarHospede(char pesQ_cpf[15], int *pCodigo, char *pNome, char *pEnd_Comp, char *pCpf, char *pTelefone,
-                     char *pEmail, char *pSexo, char *pEstadoCiv, char *pDataNasc)
+int pesquisarHospede(char pesQ_cpf[15], str_hospedes *pHosped)
 {
     FILE *pF_hosped;
     pF_hosped = fopen("..\\data\\dados_hospedes.txt", "r");
@@ -52,15 +51,15 @@ int pesquisarHospede(char pesQ_cpf[15], int *pCodigo, char *pNome, char *pEnd_Co
     {
         if (strcmp(h.cpf, pesQ_cpf) == 0 && h.codigo != 0)
         {
-            *pCodigo = h.codigo;
-            strcpy(pNome, h.nome);
-            strcpy(pEnd_Comp, h.end_completo);
-            strcpy(pCpf, h.cpf);
-            strcpy(pTelefone, h.telefone);
-            strcpy(pEmail, h.email);
-            *pSexo = h.sexo;
-            strcpy(pEstadoCiv, h.estado_civil);
-            strcpy(pDataNasc, h.data_nasc);
+            pHosped->codigo = h.codigo;
+            strcpy(pHosped->nome, h.nome);
+            strcpy(pHosped->end_completo, h.end_completo);
+            strcpy(pHosped->cpf, h.cpf);
+            strcpy(pHosped->telefone, h.telefone);
+            strcpy(pHosped->email, h.email);
+            pHosped->sexo = h.sexo;
+            strcpy(pHosped->estado_civil, h.estado_civil);
+            strcpy(pHosped->data_nasc, h.data_nasc);
             return 0;
         }
     }
