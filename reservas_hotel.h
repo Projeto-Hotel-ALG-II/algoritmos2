@@ -23,8 +23,8 @@ int realizarReserva(str_reservas reserva)
     fprintf(pF_reservas, "%d|", reserva.acomod.codigo);
     fprintf(pF_reservas, "%d|", reserva.acomod.catec_acomod.codigo);
     fprintf(pF_reservas, "%.2f|", reserva.acomod.catec_acomod.valor_diaria);
-    fprintf(pF_reservas, "%d/%d|", reserva.dia_iniReserva, reserva.mes_iniReserva);
-    fprintf(pF_reservas, "%d/%d|", reserva.dia_fimReserva, reserva.mes_fimReserva);
+    fprintf(pF_reservas, "%d/%d/%d|", reserva.dia_iniReserva, reserva.mes_iniReserva, reserva.ano_iniReserva);
+    fprintf(pF_reservas, "%d/%d/%d|", reserva.dia_fimReserva, reserva.mes_fimReserva, reserva.ano_fimReserva);
     fprintf(pF_reservas, "%d\n", reserva.tempo_Reserva);
 
     fclose(pF_reservas);
@@ -32,28 +32,44 @@ int realizarReserva(str_reservas reserva)
     return 0;
 }
 
-int pesquisarDisp_porDia(FILE *pF_reservas, str_reservas resPesq)
+int pesquisarDisp_porDia(str_reservas resPesq, str_reservas *pReserva[15])
 {
     str_reservas resRead;
+    str_reservas acomodRead;
+    int cont = 0;
 
-    if (pF_reservas == NULL)
-    {
-        exit(1);
-    }
-    while (fscanf(pF_reservas, "%d|%d|%d|%f|%d/%d|%d/%d|%d\n", &resRead.codigo, &resRead.acomod.codigo, &resRead.acomod.catec_acomod.codigo,
-                  &resRead.acomod.catec_acomod.valor_diaria, &resRead.dia_iniReserva, &resRead.mes_iniReserva, &resRead.dia_fimReserva,
-                  &resRead.mes_fimReserva, &resRead.tempo_Reserva) != EOF)
-    {
+    FILE *pF_reservas, *pF_acomod;
 
-        // dado: dia e um mes 22/10
-        // siste 20/10 - 3 dia ini < 22 dia fin > 22
-        if ((resPesq.dia_iniReserva > resRead.dia_fimReserva && resPesq.mes_iniReserva >= resRead.mes_fimReserva) ||
-            (resPesq.dia_iniReserva < resRead.dia_fimReserva && resPesq.mes_iniReserva > resRead.mes_fimReserva))
+    pF_reservas = fopen("..\\data\\reservas_hotel.txt");
+    pF_acomod = fopen("acomodacoes.txt");
+
+    // LEITURA INDIVIDUAL DE CADA LINHA DAS ACOMODAÄÂES
+    while (fscanf(pF_acomod, "%d|%[^|]|%[^|]|%d|%[^|]|%f|%d", &acomodRead.acomod.codigo, reacomodReadsRead.acomod.descricao,
+                  acomodRead.acomod.facilidades, &acomodRead.acomod.catec_acomod.codigo,
+                  acomodRead.acomod.catec_acomod.descricao, &acomodRead.acomod.catec_acomod.valor_diaria,
+                  &acomodRead.acomod.catec_acomod.qtd_pessoas) != EOF)
+    {
+        // LEITURA DE TODAS AS RESERVAS AP‡S CADA ACOMODAÄ«O
+        while ((fscanf(pF_reservas, "%d|%d|%d|%f|%d/%d|%d/%d|%d\n", &resRead.codigo, &resRead.acomod.codigo, &resRead.acomod.catec_acomod.codigo,
+                       &resRead.acomod.catec_acomod.valor_diaria, &resRead.dia_iniReserva, &resRead.mes_iniReserva, &resRead.dia_fimReserva,
+                       &resRead.mes_fimReserva, &resRead.tempo_Reserva) != EOF) ||
+               (cont < 10))
         {
 
+            // dado: dia e um mes 22/10
+            // siste 20/10 - 3 dia ini < 22 dia fin > 22
+            if (acomodRead.codigo == resRead.codigo &&
+                ((resPesq.dia_iniReserva > resRead.dia_fimReserva && resPesq.mes_iniReserva >= resRead.mes_fimReserva && resPesq.ano_iniReserva >= resRead.ano_fimReserva) ||
+                 (resPesq.dia_iniReserva < resRead.dia_fimReserva && resPesq.mes_iniReserva > resRead.mes_fimReserva && resPesq.ano_iniReserva >= resRead.ano_fimReserva) ||
+                 (resPesq.dia_iniReserva < resRead.dia_fimReserva && resPesq.mes_iniReserva < resRead.mes_fimReserva && resPesq.ano_iniReserva > resRead.ano_fimReserva)))
+            {
+                pReserva[i]->
+                cont++;
+            }
         }
     }
 
+    fclose(pF_acomod);
     fclose(pF_reservas);
 
     return 0;

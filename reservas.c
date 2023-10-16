@@ -10,7 +10,7 @@
 
 int main()
 {
-    str_reservas reserva;
+    str_reservas reservaDados[15], reserva;
     int ret, choice;
     while (1)
     {
@@ -42,15 +42,31 @@ int main()
             switch (choice)
             {
             case 1:
-                printf("Indique o dia e o mˆs de in¡cio (DD MM):");
+                printf("Indique o dia e o mˆs de in¡cio (DD/MM):");
                 scanf("%d/%d", &reserva.dia_iniReserva, &reserva.mes_iniReserva);
-                printf("Indique a dura‡Æo da estadia: %d/%d", reserva.dia_iniReserva, reserva.mes_iniReserva);
+                printf("Indique a dura‡Æo da estadia: %d %d", reserva.dia_iniReserva, reserva.mes_iniReserva);
                 scanf("%d", &reserva.tempo_Reserva);
+
+                ret = pesquisarDisp_porDia(reserva, &reservaDados);
                 if (ret == 0)
                 {
+                    printf("Nenhuma acomoda‡Æo dispon¡vel nesta data");
                 }
                 else
                 {
+                    printf("RESULTADOS: ---------------\n");
+                    for (int i = 0; i < ret; i++)
+                    {
+                        printf("Op‡Æo: %d =================\n", i);
+                        printf("C¢digo      : %d\n", reservaDados[i].acomod.codigo);
+                        printf("Descri‡Æo   : %s\n", reservaDados[i].acomod.descricao);
+                        printf("Facilidades : %s\n", reservaDados[i].acomod.facilidades);
+                        printf("Categoria desta Acomoda‡Æo --------------\n");
+                        printf(" - C¢digo                : %d\n", reservaDados[i].acomod.catec_acomod.codigo);
+                        printf(" - Descri‡Æo             : %s\n", reservaDados[i].acomod.catec_acomod.descricao);
+                        printf(" - Valor da Di ria       : %.2f\n", reservaDados[i].acomod.catec_acomod.valor_diaria);
+                        printf(" - Quantidade de Pessoas : %d\n", reservaDados[i].acomod.catec_acomod.qtd_pessoas);
+                    }
                 }
                 break;
             case 2:
