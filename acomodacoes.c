@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "conio.h"
 #include "string.h"
 #include "cadastro_acomodacoes.h"
 
@@ -17,7 +18,7 @@ void listarCategorias();
 void listarAcomodacoes();
 
 int main() {
-    int escolha;
+    int escolha, ret;
     str_categ_acomodacoes categoria;
     str_acomodacoes acomodacao;
 
@@ -46,23 +47,36 @@ int main() {
                 scanf("%f", &categoria.valor_diaria);
                 printf("Informe a quantidade de pessoas: ");
                 scanf("%d", &categoria.qtd_pessoas);
-                cadastrarCategoria(categoria);
+                ret = cadastrarCategoria(categoria);
+                if(ret == 0){
+                    printf("Categoria de acomoda��o cadastrada com sucesso!\n");
+                }
+                else {
+                    printf("Erro ao abrir o arquivo de categorias de acomoda��es.\n");
+                }
                 pausaSist();
                 break;
 
             case 2: 
-            printf("Informe o código da categoria de acomodação: ");
-            int codigoCategoria;
-            scanf("%d", &codigoCategoria);
+        
+            if(ret == 0){
+                printf("Informe o código da categoria de acomodação: ");
+                scanf("%d", &acomodacao.catec_acomod.codigo);
+                ret = pesquisarCategoria(acomodacao.catec_acomod.codigo, &categoria);
 
-            if (pesquisarCategoria(codigoCategoria, &categoria)) {
-                printf("Categoria de Acomodação encontrada!\n");
-                printf("Código: %d\n", categoria.codigo);
-                printf("Descrição: %s\n", categoria.descricao);
-                printf("Valor da Diária: %.2f\n", categoria.valor_diaria);
-                printf("Quantidade de Pessoas: %d\n", categoria.qtd_pessoas);
-            } else {
-                printf("Categoria de Acomodação não encontrada.\n");
+                if (ret == 0) {
+                    printf("Categoria de Acomodação encontrada!\n");
+                    printf("===================================\n");
+                    printf("Código                : %d\n", categoria.codigo);
+                    printf("Descrição             : %s\n", categoria.descricao);
+                    printf("Valor da Diária       : %.2f\n", categoria.valor_diaria);
+                    printf("Quantidade de Pessoas : %d\n", categoria.qtd_pessoas);
+                } else {
+                    
+                }
+            }
+            else{
+                printf("Erro ao abrir o arquivo de categorias de acomoda��es.\n");
             }
 
             pausaSist();

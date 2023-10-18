@@ -44,13 +44,13 @@ int pesquisarDisp_porDia(str_reservas resPesq, str_reservas *pReserva1, str_rese
     pF_reservas = fopen("..\\data\\reservas_hotel.txt");
     pF_acomod = fopen("acomodacoes.txt");
 
-    // LEITURA INDIVIDUAL DE CADA LINHA DAS ACOMODA€åES
+    // LEITURA INDIVIDUAL DE CADA LINHA DAS ACOMODAï¿½ï¿½ES
     while (fscanf(pF_acomod, "%d|%[^|]|%[^|]|%d|%[^|]|%f|%d", &acomodRead.acomod.codigo, reacomodReadsRead.acomod.descricao,
                   acomodRead.acomod.facilidades, &acomodRead.acomod.catec_acomod.codigo,
                   acomodRead.acomod.catec_acomod.descricao, &acomodRead.acomod.catec_acomod.valor_diaria,
                   &acomodRead.acomod.catec_acomod.qtd_pessoas) != EOF)
     {
-        // LEITURA DE TODAS AS RESERVAS APàS CADA ACOMODA€ÇO
+        // LEITURA DE TODAS AS RESERVAS APï¿½S CADA ACOMODAï¿½ï¿½O
         while ((fscanf(pF_reservas, "%d|%d|%d|%f|%d/%d|%d/%d|%d\n", &resRead.codigo, &resRead.acomod.codigo, &resRead.acomod.catec_acomod.codigo,
                        &resRead.acomod.catec_acomod.valor_diaria, &resRead.dia_iniReserva, &resRead.mes_iniReserva, &resRead.dia_fimReserva,
                        &resRead.mes_fimReserva, &resRead.tempo_Reserva) != EOF) ||
@@ -132,6 +132,11 @@ int pesquisarDisp_porDia(str_reservas resPesq, str_reservas *pReserva1, str_rese
     fclose(pF_reservas);
 
     return 0;
+}
+
+int pesquisarDisp_porCateg(){
+
+    
 }
 
 #endif
