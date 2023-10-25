@@ -11,7 +11,7 @@
 
 int main()
 {
-    str_reservas reserva;
+    str_reservas reservaDados[5], reserva;
     int ret, choice;
     while (1)
     {
@@ -43,15 +43,37 @@ int main()
             switch (choice)
             {
             case 1:
+<<<<<<< HEAD
                 printf("Indique o dia e o mï¿½s de inï¿½cio (DD MM):");
                 scanf("%d/%d", &reserva.dia_iniReserva, &reserva.mes_iniReserva);
                 printf("Indique a duraï¿½ï¿½o da estadia: %d/%d", reserva.dia_iniReserva, reserva.mes_iniReserva);
+=======
+                printf("Indique o dia e o mˆs de in¡cio (DD/MM):");
+                scanf("%d/%d", &reserva.dia_iniReserva, &reserva.mes_iniReserva);
+                printf("Indique a dura‡Æo da estadia: %d %d", reserva.dia_iniReserva, reserva.mes_iniReserva);
+>>>>>>> 650b4ba619c416095231fcda9b33b1b2c7ad7399
                 scanf("%d", &reserva.tempo_Reserva);
+
+                ret = pesquisarDisp_porDia(reserva, &reservaDados[0], &reservaDados[1], &reservaDados[2], &reservaDados[3], &reservaDados[4]);
                 if (ret == 0)
                 {
+                    printf("Nenhuma acomoda‡Æo dispon¡vel nesta data");
                 }
                 else
                 {
+                    printf("RESULTADOS: ---------------\n");
+                    for (int i = 0; i < ret; i++)
+                    {
+                        printf("Op‡Æo: %d =================\n", i);
+                        printf("C¢digo      : %d\n", reservaDados[i].acomod.codigo);
+                        printf("Descri‡Æo   : %s\n", reservaDados[i].acomod.descricao);
+                        printf("Facilidades : %s\n", reservaDados[i].acomod.facilidades);
+                        printf("Categoria desta Acomoda‡Æo --------------\n");
+                        printf(" - C¢digo                : %d\n", reservaDados[i].acomod.catec_acomod.codigo);
+                        printf(" - Descri‡Æo             : %s\n", reservaDados[i].acomod.catec_acomod.descricao);
+                        printf(" - Valor da Di ria       : %.2f\n", reservaDados[i].acomod.catec_acomod.valor_diaria);
+                        printf(" - Quantidade de Pessoas : %d\n", reservaDados[i].acomod.catec_acomod.qtd_pessoas);
+                    }
                 }
                 break;
             case 2:
