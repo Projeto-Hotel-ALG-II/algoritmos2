@@ -8,6 +8,7 @@
 
 #include "quick_tools.h"
 #include "structs_hotel.h"
+#include "cadastro_acomodacoes.h"
 
 int realizarReserva(str_reservas reserva)
 {
@@ -54,9 +55,27 @@ int pesquisarDisp_porDia(FILE *pF_reservas, str_reservas resPesq)
         }
     }
 
+
     fclose(pF_reservas);
 
     return 0;
 }
 
+int pesquisarDisp_porCateg(str_acomodacoes acomod[], int num_acomod, const char* categDesejada ){
+   
+   str_acomodacoes numReservas;
+    for (int i = 0; i < nu_categ; i++)
+    {
+        if (strcmp(acomod->catec_acomod.descricao, categDesejada) == 0)
+        {
+            for (int j = 0; j < acomod[i].numReservas; i++)
+            {
+                /* code */
+            }
+            
+        }
+        
+    }
+    
+}
 #endif

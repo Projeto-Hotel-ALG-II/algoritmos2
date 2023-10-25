@@ -5,6 +5,7 @@
 
 #include "quick_tools.h"
 #include "structs_hotel.h"
+#include "cadastro_acomodacoes.h"
 
 #include "reservas_hotel.h"
 
@@ -16,7 +17,7 @@ int main()
     {
         clearPrompt();
         printf("=> RESERVAS:\n");
-        printf("Selecione uma op‡Æo: \n");
+        printf("Selecione uma opï¿½ï¿½o: \n");
         printf("1 - Verificar disponibilidades\n");
         printf("2 - Fazer Reserva\n");
         printf("3 - Cancelamento\n");
@@ -29,22 +30,22 @@ int main()
         }
         switch (choice)
         {
-        case 1: // Verificar disponibilidade das acomoda‡äes
+        case 1: // Verificar disponibilidade das acomodaï¿½ï¿½es
 
-            printf("Como deseja verificar a disponibilidade das acomoda‡äes?\n");
+            printf("Como deseja verificar a disponibilidade das acomodaï¿½ï¿½es?\n");
             printf("1 - Pesquisa por Data.\n");
             printf("2 - Pesquisa por Categoria.\n");
             printf("3 - Pesquisa por Quantidade de Pessoas.\n");
             printf("4 - Tipo de Facilidade.\n");
-            printf("5 - Combina‡Æo.\n");
+            printf("5 - Combinaï¿½ï¿½o.\n");
             printf("=> \n");
             scanf("%d", &choice);
             switch (choice)
             {
             case 1:
-                printf("Indique o dia e o mˆs de in¡cio (DD MM):");
+                printf("Indique o dia e o mï¿½s de inï¿½cio (DD MM):");
                 scanf("%d/%d", &reserva.dia_iniReserva, &reserva.mes_iniReserva);
-                printf("Indique a dura‡Æo da estadia: %d/%d", reserva.dia_iniReserva, reserva.mes_iniReserva);
+                printf("Indique a duraï¿½ï¿½o da estadia: %d/%d", reserva.dia_iniReserva, reserva.mes_iniReserva);
                 scanf("%d", &reserva.tempo_Reserva);
                 if (ret == 0)
                 {
@@ -54,7 +55,7 @@ int main()
                 }
                 break;
             case 2:
-                printf("Indique o c¢digo da categoria que deseja reservar:");
+                printf("Indique o cï¿½digo da categoria que deseja reservar:");
                 scanf("%d", &choice);
                 break;
 
@@ -63,12 +64,12 @@ int main()
             }
 
             /*
-                Reserva: este m¢dulo deve permitir que o operador verifique a disponibilidade de uma
-                acomoda‡Æo por data, categoria de acomoda‡Æo, quantidade de pessoas, tipo de
-                facilidade, ou por uma combina‡Æo destes crit‚rios. Por exemplo, o sistema deve
-                permitir que o operador localize um quarto da categoria luxo, do dia 01 a 10 desse mˆs,
-                que tenha banheira de hidromassagem e que comporte 2 adultos e 2 crian‡as. Em
-                hip¢tese alguma deve haver sombreamento de datas para uma mesma acomoda‡Æo.
+                Reserva: este mï¿½dulo deve permitir que o operador verifique a disponibilidade de uma
+                acomodaï¿½ï¿½o por data, categoria de acomodaï¿½ï¿½o, quantidade de pessoas, tipo de
+                facilidade, ou por uma combinaï¿½ï¿½o destes critï¿½rios. Por exemplo, o sistema deve
+                permitir que o operador localize um quarto da categoria luxo, do dia 01 a 10 desse mï¿½s,
+                que tenha banheira de hidromassagem e que comporte 2 adultos e 2 crianï¿½as. Em
+                hipï¿½tese alguma deve haver sombreamento de datas para uma mesma acomodaï¿½ï¿½o.
             */
 
             break;
@@ -79,7 +80,7 @@ int main()
 
             break;
         default:
-            printf("\n[X] ERRO - Insira um valor v lido!");
+            printf("\n[X] ERRO - Insira um valor vï¿½lido!");
             pausaSist();
             break;
         }
